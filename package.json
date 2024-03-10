@@ -1,0 +1,17 @@
+{
+  "name": "pizzashop-api",
+  "version": "1.0.50",
+  "scripts": {
+    "dev": "bun run --watch src/http/server.ts",
+    "build": "bun build src/index.ts",
+    "start": "NODE_ENV=production bun src/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}

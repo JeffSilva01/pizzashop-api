@@ -17,7 +17,7 @@ export const auth = new Elysia()
     }),
   )
   .use(cookie())
-  .derive(({ setCookie, jwt, removeCookie }) => {
+  .derive(({ setCookie, jwt, removeCookie, cookie }) => {
     return {
       signUser: async ({ sub, restaurantId }: Static<typeof jwtPayload>) => {
         const jwtToken = await jwt.sign({
@@ -33,6 +33,20 @@ export const auth = new Elysia()
       },
       signOut: () => {
         removeCookie('auth')
+      },
+      getCurrentUser: async () => {
+        const authCookie = cookie.auth
+
+        const payload = await jwt.verify(authCookie)
+
+        if (!payload) {
+          throw new Error('Unauthorized.')
+        }
+
+        return {
+          userId: payload.sub,
+          restaurantId: payload.restaurantId,
+        }
       },
     }
   })

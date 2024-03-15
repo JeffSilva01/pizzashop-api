@@ -7,7 +7,7 @@ import { createId } from '@paralleldrive/cuid2'
 import { transport } from '../../lib/nodemailer'
 
 export const sendAuthLink = new Elysia().post(
-  'authenticate',
+  '/authenticate',
   async ({ body, set }) => {
     const { email } = body
 

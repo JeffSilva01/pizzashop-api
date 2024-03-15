@@ -8,6 +8,7 @@ const envSchema = z.object({
   EMAIL_PORT: z.coerce.number(),
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
+  JWT_SECRET_KEY: z.string(),
 })
 
 export const env = envSchema.parse(process.env)

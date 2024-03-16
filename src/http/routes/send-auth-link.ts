@@ -4,7 +4,7 @@ import { env } from '../../env'
 import { db } from '../../db/connection'
 import { authLinks } from '../../db/schema'
 import { createId } from '@paralleldrive/cuid2'
-import { transport } from '../../lib/nodemailer'
+import { mail } from '../../lib/mail'
 
 export const sendAuthLink = new Elysia().post(
   '/authenticate',
@@ -31,12 +31,15 @@ export const sendAuthLink = new Elysia().post(
     authLink.searchParams.set('code', authLinkCode)
     authLink.searchParams.set('redirect', env.AUTH_REDIRECT_URL)
 
-    transport.sendMail({
-      from: '"Jefferson Silva 👻" <jeffsilva01.dev@gmail.com>', // sender address
-      to: `${user.email}`, // list of receivers
-      subject: 'Hello ✔', // Subject line
-      text: `Click no link para fazer login: ${authLink.toString()}`, // plain text body
-      html: `<p>Click no link para fazer login: <a href="${authLink.toString()}">LINK</a></p>`,
+    mail.sendMail({
+      from: {
+        name: 'Pizza Shop',
+        address: 'hi@pizzashop.com',
+      }, // sender address
+      to: email, // list of receivers
+      subject: 'Authenticate to Pizza Shop', // Subject line
+      text: `Use the following to authenticate on Pizza Shop: ${authLink.toString()}`, // plain text body
+      html: `<p>Use the following to authenticate on Pizza Shop: <a href="${authLink.toString()}" target="_blank">LINK</a></p>`,
     })
 
     set.status = 204

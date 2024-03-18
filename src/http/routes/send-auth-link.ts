@@ -4,7 +4,7 @@ import { env } from '../../env'
 import { db } from '../../db/connection'
 import { authLinks } from '../../db/schema'
 import { createId } from '@paralleldrive/cuid2'
-import { mail } from '../../lib/mail'
+import queue from '../../lib/queue'
 
 export const sendAuthLink = new Elysia().post(
   '/authenticate',
@@ -31,16 +31,7 @@ export const sendAuthLink = new Elysia().post(
     authLink.searchParams.set('code', authLinkCode)
     authLink.searchParams.set('redirect', env.AUTH_REDIRECT_URL)
 
-    mail.sendMail({
-      from: {
-        name: 'Pizza Shop',
-        address: 'hi@pizzashop.com',
-      }, // sender address
-      to: email, // list of receivers
-      subject: 'Authenticate to Pizza Shop', // Subject line
-      text: `Use the following to authenticate on Pizza Shop: ${authLink.toString()}`, // plain text body
-      html: `<p>Use the following to authenticate on Pizza Shop: <a href="${authLink.toString()}" target="_blank">LINK</a></p>`,
-    })
+    queue.add('registrationMail', { authLink, email })
 
     set.status = 204
   },

@@ -9,6 +9,8 @@ const envSchema = z.object({
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
   JWT_SECRET_KEY: z.string(),
+  REDIS_HOST: z.string(),
+  REDIS_PORT: z.coerce.number(),
 })
 
 export const env = envSchema.parse(process.env)

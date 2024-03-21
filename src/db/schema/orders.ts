@@ -29,7 +29,7 @@ export const orders = pgTable('orders', {
     }),
   status: orderIstatusEnun('status').default('pending').notNull(),
   totalInCents: integer('total_in_cents').notNull(),
-  comments: text('comments').notNull(),
+  comments: text('comments'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })

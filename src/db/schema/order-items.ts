@@ -19,7 +19,7 @@ export const orderItems = pgTable('orderItems', {
     .references(() => users.id, {
       onDelete: 'set null',
     }),
-  priceInCentes: integer('price_in_centes').notNull(),
+  priceInCents: integer('price_in_centes').notNull(),
   quantity: integer('quantity').default(1).notNull(),
 })
 

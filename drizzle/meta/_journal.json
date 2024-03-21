@@ -57,6 +57,27 @@
       "when": 1710980193683,
       "tag": "0007_giant_queen_noir",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1710981020460,
+      "tag": "0008_plain_psynapse",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1710981632460,
+      "tag": "0009_cultured_the_santerians",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1710981697943,
+      "tag": "0010_blue_guardsmen",
+      "breakpoints": true
     }
   ]
 }

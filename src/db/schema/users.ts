@@ -28,3 +28,6 @@ export const usersRelations = relations(users, ({ one, many }) => {
     orders: many(orders),
   }
 })
+
+export type User = typeof users.$inferSelect // return type when queried
+export type NewUser = typeof users.$inferInsert // insert type

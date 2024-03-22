@@ -29,3 +29,6 @@ export const restaurantsRelations = relations(restaurants, ({ one, many }) => {
     products: many(products),
   }
 })
+
+export type Restaurant = typeof restaurants.$inferSelect // return type when queried
+export type NewRestaurant = typeof restaurants.$inferInsert // insert type

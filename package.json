@@ -10,7 +10,9 @@
     "migrate": "bun ./src/db/migrate.ts",
     "seed": "bun ./src/db/seed.ts",
     "studio": "bunx drizzle-kit studio",
-    "lint": "eslint --fix src --ext ts"
+    "lint": "eslint --fix src --ext ts",
+    "test": "vitest run --dir src/use-cases",
+    "test:watch": "vitest --dir src/use-cases"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.8.0",
@@ -37,7 +39,8 @@
     "eslint": "^8.57.0",
     "eslint-plugin-drizzle": "^0.2.3",
     "pg": "^8.11.3",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "vitest": "^1.4.0"
   },
   "module": "src/index.js"
 }

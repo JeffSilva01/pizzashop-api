@@ -1,4 +1,4 @@
-import { expect, describe, it, beforeEach } from 'vitest'
+import { expect, describe, it, beforeEach } from 'bun:test'
 import { faker } from '@faker-js/faker'
 
 import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-users-repository'

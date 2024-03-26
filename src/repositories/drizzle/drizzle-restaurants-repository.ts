@@ -1,8 +1,8 @@
 import { db } from '../../db/connection'
 import { NewRestaurant, restaurants } from '../../db/schema'
-import { RestaurantRepository } from '../restaurant-repository'
+import { RestaurantsRepository } from '../restaurants-repository'
 
-export class DrizzleRestaurantRepository implements RestaurantRepository {
+export class DrizzleRestaurantRepository implements RestaurantsRepository {
   async create({ name, description, managerId }: NewRestaurant) {
     const [restaurant] = await db
       .insert(restaurants)

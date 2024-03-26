@@ -1,5 +1,5 @@
 import { NewRestaurant, Restaurant } from '../db/schema'
 
-export interface RestaurantRepository {
+export interface RestaurantsRepository {
   create(data: NewRestaurant): Promise<Restaurant>
 }

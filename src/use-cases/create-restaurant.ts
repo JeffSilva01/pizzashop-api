@@ -1,5 +1,6 @@
 import { RestaurantsRepository } from '../repositories/restaurants-repository'
 import { UsersRepository } from '../repositories/users-repository'
+import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
 interface CreateRestaurantUseCaseRequest {
   userEmail: string
@@ -33,6 +34,12 @@ export class CreateRestaurantUseCase {
     userPhone,
     restaurantDescription,
   }: CreateRestaurantUseCaseRequest): Promise<CreateRestaurantUseCaseResponse> {
+    const userWithSameEmail = await this.userRepository.findByEmail(userEmail)
+
+    if (userWithSameEmail) {
+      throw new UserAlreadyExistsError()
+    }
+
     const user = await this.userRepository.create({
       name: userName,
       email: userEmail,

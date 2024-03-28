@@ -1,30 +1,33 @@
 import { Elysia, t } from 'elysia'
-
-import { db } from '../../db/connection'
-import { restaurants, users } from '../../db/schema'
+import { makeCreateRestaurant } from '../../use-cases/factories/make-create-restaurant'
+import { UserAlreadyExistsError } from '../../use-cases/errors/user-already-exists-error'
 
 export const registerRestaurants = new Elysia().post(
   '/restaurants',
   async ({ body, set }) => {
     const { restaurantName, managerName, email, description, phone } = body
 
-    const [manager] = await db
-      .insert(users)
-      .values({
-        email,
-        phone,
-        name: managerName,
-        role: 'manager',
+    try {
+      const createRestaurantUseCase = makeCreateRestaurant()
+      await createRestaurantUseCase.execute({
+        restaurantName,
+        userName: managerName,
+        userEmail: email,
+        restaurantDescription: description,
+        userPhone: phone,
       })
-      .returning({ id: users.id })
 
-    await db.insert(restaurants).values({
-      name: restaurantName,
-      description,
-      managerId: manager.id,
-    })
+      set.status = 204
+    } catch (error) {
+      if (error instanceof UserAlreadyExistsError) {
+        set.status = 409
 
-    set.status = 204
+        return {
+          message: error.message,
+        }
+      }
+      throw error
+    }
   },
   {
     body: t.Object({

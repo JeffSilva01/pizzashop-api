@@ -18,8 +18,8 @@ describe('Create Restaurant Use Case', () => {
 
   it('should to restaurant user', async () => {
     const { restaurant } = await sut.execute({
-      userEmail: faker.internet.email(),
-      userName: faker.person.fullName(),
+      managerEmail: faker.internet.email(),
+      managerName: faker.person.fullName(),
       restaurantName: faker.company.name(),
     })
 

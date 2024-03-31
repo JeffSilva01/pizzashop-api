@@ -3,9 +3,9 @@ import { UsersRepository } from '../repositories/users-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
 interface CreateRestaurantUseCaseRequest {
-  userEmail: string
-  userPhone?: string
-  userName: string
+  managerEmail: string
+  managerPhone?: string
+  managerName: string
   restaurantName: string
   restaurantDescription?: string
 }
@@ -25,32 +25,33 @@ export class CreateRestaurantUseCase {
   constructor(
     private restaurantRepository: RestaurantsRepository,
     private userRepository: UsersRepository,
-  ) {}
+  ) { }
 
   async execute({
-    userName,
+    managerName,
+    managerEmail,
+    managerPhone,
     restaurantName,
-    userEmail,
-    userPhone,
     restaurantDescription,
   }: CreateRestaurantUseCaseRequest): Promise<CreateRestaurantUseCaseResponse> {
-    const userWithSameEmail = await this.userRepository.findByEmail(userEmail)
+    const userWithSameEmail =
+      await this.userRepository.findByEmail(managerEmail)
 
     if (userWithSameEmail) {
       throw new UserAlreadyExistsError()
     }
 
-    const user = await this.userRepository.create({
-      name: userName,
-      email: userEmail,
+    const manager = await this.userRepository.create({
+      name: managerName,
+      email: managerEmail,
       role: 'manager',
-      phone: userPhone,
+      phone: managerPhone,
     })
 
     const restaurant = await this.restaurantRepository.create({
       name: restaurantName,
       description: restaurantDescription,
-      managerId: user.id,
+      managerId: manager.id,
     })
 
     return {

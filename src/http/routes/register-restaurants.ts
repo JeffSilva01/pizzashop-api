@@ -11,10 +11,10 @@ export const registerRestaurants = new Elysia().post(
       const createRestaurantUseCase = makeCreateRestaurant()
       await createRestaurantUseCase.execute({
         restaurantName,
-        userName: managerName,
-        userEmail: email,
+        managerName,
+        managerEmail: email,
         restaurantDescription: description,
-        userPhone: phone,
+        managerPhone: phone,
       })
 
       set.status = 204

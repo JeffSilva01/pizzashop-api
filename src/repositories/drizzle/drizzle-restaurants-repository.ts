@@ -15,4 +15,14 @@ export class DrizzleRestaurantRepository implements RestaurantsRepository {
 
     return restaurant
   }
+
+  async findById(id: string) {
+    const restaurant = await db.query.restaurants.findFirst({
+      where(filds, { eq }) {
+        return eq(filds.id, id)
+      },
+    })
+
+    return restaurant || null
+  }
 }

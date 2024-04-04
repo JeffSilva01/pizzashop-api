@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia'
 import { auth } from '../auth'
-import { db } from '../../db/connection'
+import { makeFetchRestaurantManaged } from '../../use-cases/factories/make-fetch-restaurant-managed'
+import { UserIsNotManage } from '../../use-cases/errors/user-is-not-manage'
 
 export const getManagedRestaurant = new Elysia()
   .use(auth)
@@ -8,16 +9,13 @@ export const getManagedRestaurant = new Elysia()
     const { restaurantId } = await getCurrentUser()
 
     if (!restaurantId) {
-      throw new Error('User is not manage.')
+      throw new UserIsNotManage()
     }
 
-    const managerRestaurant = await db.query.restaurants.findFirst({
-      where(filds, { eq }) {
-        return eq(filds.id, restaurantId)
-      },
-    })
+    const fetchRestaurantManaged = makeFetchRestaurantManaged()
+    const managedRestaurant = fetchRestaurantManaged.execute({ restaurantId })
 
     return {
-      managerRestaurant,
+      managedRestaurant,
     }
   })

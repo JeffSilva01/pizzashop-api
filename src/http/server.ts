@@ -5,8 +5,10 @@ import { authenticateFomLInk } from './routes/authenticate-from-link'
 import { signOut } from './routes/sign-out'
 import { getProfile } from './routes/get-profile'
 import { getManagedRestaurant } from './routes/get-managed-restaurant'
+import swagger from '@elysiajs/swagger'
 
 const app = new Elysia()
+  .use(swagger())
   .use(registerRestaurants)
   .use(sendAuthLink)
   .use(authenticateFomLInk)

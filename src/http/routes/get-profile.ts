@@ -1,22 +1,14 @@
 import { Elysia } from 'elysia'
 import { auth } from '../auth'
-import { db } from '../../db/connection'
-import { UnauthorizadErro } from '../errors/unauthorized-error'
+import { makeFetchProfile } from '../../use-cases/factories/make-fetch-profile'
 
 export const getProfile = new Elysia()
   .use(auth)
   .get('/me', async ({ getCurrentUser }) => {
-    const { userId } = await getCurrentUser()
+    const { userId: id } = await getCurrentUser()
 
-    const user = await db.query.users.findFirst({
-      where(filds, { eq }) {
-        return eq(filds.id, userId)
-      },
-    })
+    const fetchProfile = makeFetchProfile()
+    const { profile } = await fetchProfile.execute({ id })
 
-    if (!user) {
-      throw new UnauthorizadErro()
-    }
-
-    return { user }
+    return { user: profile }
   })

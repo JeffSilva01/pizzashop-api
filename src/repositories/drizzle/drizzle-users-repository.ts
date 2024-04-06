@@ -26,4 +26,14 @@ export class DrizzleUsersRepository implements UsersRepository {
 
     return user || null
   }
+
+  async findById(id: string) {
+    const user = await db.query.users.findFirst({
+      where(filds, { eq }) {
+        return eq(filds.id, id)
+      },
+    })
+
+    return user || null
+  }
 }

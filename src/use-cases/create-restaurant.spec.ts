@@ -16,7 +16,7 @@ describe('Create Restaurant Use Case', () => {
     sut = new CreateRestaurantUseCase(restaurantRepository, userRepository)
   })
 
-  it('should to restaurant user', async () => {
+  it('should register a restaurant', async () => {
     const { restaurant } = await sut.execute({
       managerEmail: faker.internet.email(),
       managerName: faker.person.fullName(),

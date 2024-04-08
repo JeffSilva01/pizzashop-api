@@ -15,7 +15,6 @@ export const getManagedRestaurant = new Elysia()
     const getRestaurant = makeGetRestaurant()
     const managedRestaurant = await getRestaurant.execute({ restaurantId })
 
-
     return {
       managedRestaurant,
     }

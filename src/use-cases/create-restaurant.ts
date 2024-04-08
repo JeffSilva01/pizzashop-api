@@ -25,7 +25,7 @@ export class CreateRestaurantUseCase {
   constructor(
     private restaurantRepository: RestaurantsRepository,
     private userRepository: UsersRepository,
-  ) { }
+  ) {}
 
   async execute({
     managerName,

@@ -3,32 +3,31 @@ import { faker } from '@faker-js/faker'
 
 import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-users-repository'
 import { CreateUserUseCase } from './create-user'
-import { FetchProfileUseCase } from './fetch-profile'
-import { UnauthorizadErro } from '../http/errors/unauthorized-error'
+import { GetUserUseCase } from './get-user'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let usersRepository: InMemoryUsersRepository
 let createUserUseCase: CreateUserUseCase
-let sut: FetchProfileUseCase
+let sut: GetUserUseCase
 
 describe('Fetch Profile Use Case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
     createUserUseCase = new CreateUserUseCase(usersRepository)
-    sut = new FetchProfileUseCase(usersRepository)
+    sut = new GetUserUseCase(usersRepository)
   })
 
   it('should to fetch profile', async () => {
-    const { user } = await createUserUseCase.execute({
+    const { user: newUser } = await createUserUseCase.execute({
       phone: faker.phone.number(),
       name: faker.person.fullName(),
       role: 'manager',
       email: faker.internet.email(),
     })
 
-    const { profile } = await sut.execute({ id: user.id })
+    const { user } = await sut.execute({ id: newUser.id })
 
-    expect(profile.id).toEqual(expect.any(String))
+    expect(user.id).toEqual(expect.any(String))
   })
 
   it('should not fetch profile', async () => {

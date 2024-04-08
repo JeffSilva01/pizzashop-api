@@ -17,7 +17,7 @@ interface GetRestaurantUseCaseResponse {
 }
 
 export class GetRestaurant {
-  constructor(private restaurantRepository: RestaurantsRepository) { }
+  constructor(private restaurantRepository: RestaurantsRepository) {}
   async execute({
     restaurantId,
   }: GetRestaurantUseCaseRequest): Promise<GetRestaurantUseCaseResponse> {

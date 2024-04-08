@@ -1,12 +1,12 @@
 import { UsersRepository } from '../repositories/users-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-type FetchProfileUseCaseRequeste = {
+type GetUserUseCaseRequeste = {
   id: string
 }
 
-type FetchProfileUseCaseResponse = {
-  profile: {
+type GetUserUseCaseResponse = {
+  user: {
     id: string
     email: string
     name: string
@@ -17,17 +17,17 @@ type FetchProfileUseCaseResponse = {
   }
 }
 
-export class FetchProfileUseCase {
-  constructor(private usersRepository: UsersRepository) { }
+export class GetUserUseCase {
+  constructor(private usersRepository: UsersRepository) {}
   async execute({
     id,
-  }: FetchProfileUseCaseRequeste): Promise<FetchProfileUseCaseResponse> {
+  }: GetUserUseCaseRequeste): Promise<GetUserUseCaseResponse> {
     const user = await this.usersRepository.findById(id)
 
     if (!user) {
       throw new ResourceNotFoundError()
     }
 
-    return { profile: user }
+    return { user }
   }
 }

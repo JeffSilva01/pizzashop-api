@@ -1,9 +1,9 @@
 import { DrizzleUsersRepository } from '../../repositories/drizzle/drizzle-users-repository'
-import { FetchProfileUseCase } from '../fetch-profile'
+import { GetUserUseCase } from '../get-user'
 
-export function makeFetchProfile() {
+export function makeGetUser() {
   const userRepository = new DrizzleUsersRepository()
-  const useCase = new FetchProfileUseCase(userRepository)
+  const useCase = new GetUserUseCase(userRepository)
 
   return useCase
 }

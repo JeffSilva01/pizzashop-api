@@ -3,13 +3,13 @@ import { faker } from '@faker-js/faker'
 
 import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-users-repository'
 import { InMemoryRestaurantsRepository } from '../repositories/in-memory/in-memory-restaurant-repository'
-import { FetchRestaurantManaged } from './fetch-restaurant-managed'
+import { GetRestaurant } from './get-restaurant'
 import { CreateRestaurantUseCase } from './create-restaurant'
 
 let restaurantRepository: InMemoryRestaurantsRepository
 let userRpository: InMemoryUsersRepository
 let createRestauranteUseCase: CreateRestaurantUseCase
-let sut: FetchRestaurantManaged
+let sut: GetRestaurant
 
 describe('Fetch Restaurant Managed Use Case', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('Fetch Restaurant Managed Use Case', () => {
       restaurantRepository,
       userRpository,
     )
-    sut = new FetchRestaurantManaged(restaurantRepository)
+    sut = new GetRestaurant(restaurantRepository)
   })
 
   it('should to fetch restaurant', async () => {

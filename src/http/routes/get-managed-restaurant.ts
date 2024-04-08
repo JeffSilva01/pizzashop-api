@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia'
 import { auth } from '../auth'
-import { makeFetchRestaurantManaged } from '../../use-cases/factories/make-fetch-restaurant-managed'
+import { makeGetRestaurant } from '../../use-cases/factories/make-get-restaurant'
 import { UserIsNotManage } from '../../use-cases/errors/user-is-not-manage'
 
 export const getManagedRestaurant = new Elysia()
@@ -12,8 +12,9 @@ export const getManagedRestaurant = new Elysia()
       throw new UserIsNotManage()
     }
 
-    const fetchRestaurantManaged = makeFetchRestaurantManaged()
-    const managedRestaurant = fetchRestaurantManaged.execute({ restaurantId })
+    const getRestaurant = makeGetRestaurant()
+    const managedRestaurant = await getRestaurant.execute({ restaurantId })
+
 
     return {
       managedRestaurant,

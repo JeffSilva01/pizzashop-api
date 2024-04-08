@@ -1,9 +1,9 @@
 import { DrizzleRestaurantRepository } from '../../repositories/drizzle/drizzle-restaurants-repository'
-import { FetchRestaurantManaged } from '../fetch-restaurant-managed'
+import { GetRestaurant } from '../get-restaurant'
 
-export function makeFetchRestaurantManaged() {
+export function makeGetRestaurant() {
   const restaurantRepository = new DrizzleRestaurantRepository()
-  const useCase = new FetchRestaurantManaged(restaurantRepository)
+  const useCase = new GetRestaurant(restaurantRepository)
 
   return useCase
 }

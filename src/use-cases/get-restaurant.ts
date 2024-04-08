@@ -1,11 +1,11 @@
 import { RestaurantsRepository } from '../repositories/restaurants-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface FetchRestaurantManagedUseCaseRequest {
+interface GetRestaurantUseCaseRequest {
   restaurantId: string
 }
 
-interface FetchRestaurantManagedUseCaseResponse {
+interface GetRestaurantUseCaseResponse {
   restaurant: {
     id: string
     name: string
@@ -16,11 +16,11 @@ interface FetchRestaurantManagedUseCaseResponse {
   }
 }
 
-export class FetchRestaurantManaged {
+export class GetRestaurant {
   constructor(private restaurantRepository: RestaurantsRepository) { }
   async execute({
     restaurantId,
-  }: FetchRestaurantManagedUseCaseRequest): Promise<FetchRestaurantManagedUseCaseResponse> {
+  }: GetRestaurantUseCaseRequest): Promise<GetRestaurantUseCaseResponse> {
     const restaurant = await this.restaurantRepository.findById(restaurantId)
 
     if (!restaurant) {

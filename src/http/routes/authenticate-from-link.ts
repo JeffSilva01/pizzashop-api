@@ -5,7 +5,7 @@ import { auth } from '../auth'
 import { authLinks } from '../../db/schema'
 import { eq } from 'drizzle-orm'
 
-export const authenticateFomLInk = new Elysia().use(auth).get(
+export const authenticateFomLink = new Elysia().use(auth).get(
   '/auth-links/authenticate',
   async ({ query, set, signUser }) => {
     const { code, redirect } = query

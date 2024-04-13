@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 import { registerRestaurants } from './routes/register-restaurants'
 import { sendAuthLink } from './routes/send-auth-link'
-import { authenticateFomLInk } from './routes/authenticate-from-link'
+import { authenticateFomLink } from './routes/authenticate-from-link'
 import { signOut } from './routes/sign-out'
 import { getProfile } from './routes/get-profile'
 import { getManagedRestaurant } from './routes/get-managed-restaurant'
@@ -11,7 +11,7 @@ const app = new Elysia()
   .use(swagger())
   .use(registerRestaurants)
   .use(sendAuthLink)
-  .use(authenticateFomLInk)
+  .use(authenticateFomLink)
   .use(signOut)
   .use(getProfile)
   .use(getManagedRestaurant)

@@ -11,7 +11,7 @@ let userRpository: InMemoryUsersRepository
 let createRestauranteUseCase: CreateRestaurantUseCase
 let sut: GetRestaurant
 
-describe('Fetch Restaurant Managed Use Case', () => {
+describe('Get Restaurant Managed Use Case', () => {
   beforeEach(() => {
     restaurantRepository = new InMemoryRestaurantsRepository()
     userRpository = new InMemoryUsersRepository()
@@ -22,7 +22,7 @@ describe('Fetch Restaurant Managed Use Case', () => {
     sut = new GetRestaurant(restaurantRepository)
   })
 
-  it('should to fetch restaurant', async () => {
+  it('should get a managed restaurant', async () => {
     const { restaurant: newRestaurant } =
       await createRestauranteUseCase.execute({
         managerEmail: faker.internet.email(),

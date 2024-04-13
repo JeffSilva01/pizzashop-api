@@ -14,3 +14,6 @@ export const authLinks = pgTable('auth_links', {
     .notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
+
+export type AuthLink = typeof authLinks.$inferSelect // return type when queried
+export type NewAuthLink = typeof authLinks.$inferInsert // insert type

@@ -2,7 +2,7 @@ import { createId } from '@paralleldrive/cuid2'
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { users } from './users'
 
-export const authLinks = pgTable('auth_links', {
+export const authCodes = pgTable('auth_codes', {
   id: text('id')
     .$defaultFn(() => createId())
     .primaryKey(),
@@ -15,5 +15,5 @@ export const authLinks = pgTable('auth_links', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
-export type AuthLink = typeof authLinks.$inferSelect // return type when queried
-export type NewAuthLink = typeof authLinks.$inferInsert // insert type
+export type AuthCode = typeof authCodes.$inferSelect // return type when queried
+export type NewAuthCode = typeof authCodes.$inferInsert // insert type

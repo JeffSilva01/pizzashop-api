@@ -2,20 +2,20 @@ import { expect, describe, it, beforeEach } from 'bun:test'
 import { faker } from '@faker-js/faker'
 import { CreateAuthenticateCodeUseCase } from './create-authenticate-code'
 import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-users-repository'
-import { InMemoryAuthLinksRepository } from '../repositories/in-memory/in-memory-auth-link-repository'
+import { InMemoryAuthCodesRepository } from '../repositories/in-memory/in-memory-auth-codes-repository'
 import { CreateUserUseCase } from './create-user'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let createUserUseCase: CreateUserUseCase
 
 let usersRepository: InMemoryUsersRepository
-let authLinksRepository: InMemoryAuthLinksRepository
+let authLinksRepository: InMemoryAuthCodesRepository
 let sut: CreateAuthenticateCodeUseCase
 
 describe('Create Authenticate Code Use Case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
-    authLinksRepository = new InMemoryAuthLinksRepository()
+    authLinksRepository = new InMemoryAuthCodesRepository()
 
     createUserUseCase = new CreateUserUseCase(usersRepository)
 
@@ -44,6 +44,5 @@ describe('Create Authenticate Code Use Case', () => {
     expect(
       sut.execute({ userEmail: faker.internet.email() }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
-
   })
 })

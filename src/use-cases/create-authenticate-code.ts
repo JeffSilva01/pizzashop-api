@@ -1,6 +1,6 @@
 import { createId } from '@paralleldrive/cuid2'
 import { UsersRepository } from '../repositories/users-repository'
-import { AuthLinksRepository } from '../repositories/auth-links-repository'
+import { AuthCodesRepository } from '../repositories/auth-codes-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 type CreateAuthenticateCodeUseCaseRequeste = {
@@ -14,8 +14,8 @@ type CreateAuthenticateCodeUseCaseResponse = {
 export class CreateAuthenticateCodeUseCase {
   constructor(
     private usersRepository: UsersRepository,
-    private authLinksRepository: AuthLinksRepository,
-  ) { }
+    private authLinksRepository: AuthCodesRepository,
+  ) {}
 
   async execute({
     userEmail,

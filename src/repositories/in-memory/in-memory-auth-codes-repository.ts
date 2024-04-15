@@ -1,11 +1,11 @@
 import { createId } from '@paralleldrive/cuid2'
-import { AuthLink, NewAuthLink } from '../../db/schema'
-import { AuthLinksRepository } from '../auth-links-repository'
+import { AuthCode, NewAuthCode } from '../../db/schema'
+import { AuthCodesRepository } from '../auth-codes-repository'
 
-export class InMemoryAuthLinksRepository implements AuthLinksRepository {
-  public items: AuthLink[] = []
+export class InMemoryAuthCodesRepository implements AuthCodesRepository {
+  public items: AuthCode[] = []
 
-  async create({ id, code, userId }: NewAuthLink) {
+  async create({ id, code, userId }: NewAuthCode) {
     const authLink = {
       id: id || createId(),
       code,

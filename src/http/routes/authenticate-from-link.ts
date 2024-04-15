@@ -2,7 +2,7 @@ import { Elysia, t } from 'elysia'
 import { db } from '../../db/connection'
 import dayjs from 'dayjs'
 import { auth } from '../auth'
-import { authLinks } from '../../db/schema'
+import { authCodes } from '../../db/schema'
 import { eq } from 'drizzle-orm'
 
 export const authenticateFomLink = new Elysia().use(auth).get(
@@ -10,7 +10,7 @@ export const authenticateFomLink = new Elysia().use(auth).get(
   async ({ query, set, signUser }) => {
     const { code, redirect } = query
 
-    const authLinkFromCode = await db.query.authLinks.findFirst({
+    const authLinkFromCode = await db.query.authCodes.findFirst({
       where(filds, { eq }) {
         return eq(filds.code, code)
       },
@@ -26,7 +26,7 @@ export const authenticateFomLink = new Elysia().use(auth).get(
     )
 
     if (minutesSinceAuthLinkWasCreated > 15) {
-      await db.delete(authLinks).where(eq(authLinks.code, code))
+      await db.delete(authCodes).where(eq(authCodes.code, code))
       throw new Error('Auth link expied, please generate a new one.')
     }
 
@@ -41,7 +41,7 @@ export const authenticateFomLink = new Elysia().use(auth).get(
       restaurantId: restaurant?.id,
     })
 
-    await db.delete(authLinks).where(eq(authLinks.code, code))
+    await db.delete(authCodes).where(eq(authCodes.code, code))
 
     set.redirect = redirect
   },

@@ -14,7 +14,7 @@ type CreateAuthenticateCodeUseCaseResponse = {
 export class CreateAuthenticateCodeUseCase {
   constructor(
     private usersRepository: UsersRepository,
-    private authLinksRepository: AuthCodesRepository,
+    private authCodesRepository: AuthCodesRepository,
   ) {}
 
   async execute({
@@ -28,7 +28,7 @@ export class CreateAuthenticateCodeUseCase {
 
     const code = createId()
 
-    await this.authLinksRepository.create({
+    await this.authCodesRepository.create({
       userId: user.id,
       code,
     })

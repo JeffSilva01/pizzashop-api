@@ -23,4 +23,10 @@ export class InMemoryAuthCodesRepository implements AuthCodesRepository {
 
     return authLink || null
   }
+
+  async deleteById(id: string) {
+    const itemIndex = this.items.findIndex((item) => item.id === id)
+
+    this.items.splice(itemIndex, 1)
+  }
 }

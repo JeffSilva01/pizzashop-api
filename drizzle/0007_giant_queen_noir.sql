@@ -1,1 +1,0 @@
-ALTER TABLE "orders" ALTER COLUMN "comments" DROP NOT NULL;

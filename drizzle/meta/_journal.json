@@ -5,78 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1710128813073,
-      "tag": "0000_brainy_puff_adder",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1710129051853,
-      "tag": "0001_third_microchip",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1710202839301,
-      "tag": "0002_closed_vulture",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1710202987576,
-      "tag": "0003_cheerful_mathemanic",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1710376898762,
-      "tag": "0004_long_squadron_supreme",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1710899232522,
-      "tag": "0005_unique_titanium_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1710977026990,
-      "tag": "0006_steep_krista_starr",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1710980193683,
-      "tag": "0007_giant_queen_noir",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1710981020460,
-      "tag": "0008_plain_psynapse",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1710981632460,
-      "tag": "0009_cultured_the_santerians",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "5",
-      "when": 1710981697943,
-      "tag": "0010_blue_guardsmen",
+      "when": 1713145672156,
+      "tag": "0000_brave_mesmero",
       "breakpoints": true
     }
   ]

@@ -1,47 +1,21 @@
 import { Elysia, t } from 'elysia'
-import { db } from '../../db/connection'
-import dayjs from 'dayjs'
 import { auth } from '../auth'
-import { authCodes } from '../../db/schema'
-import { eq } from 'drizzle-orm'
+import { makeAuthenticateFromCode } from '../../use-cases/factories/make-authenticate-from-code'
 
-export const authenticateFomLink = new Elysia().use(auth).get(
+export const authenticateFromLink = new Elysia().use(auth).get(
   '/auth-links/authenticate',
   async ({ query, set, signUser }) => {
     const { code, redirect } = query
 
-    const authLinkFromCode = await db.query.authCodes.findFirst({
-      where(filds, { eq }) {
-        return eq(filds.code, code)
-      },
-    })
-
-    if (!authLinkFromCode) {
-      throw new Error('Auth link not Found.')
-    }
-
-    const minutesSinceAuthLinkWasCreated = dayjs().diff(
-      authLinkFromCode.createdAt,
-      'minutes',
-    )
-
-    if (minutesSinceAuthLinkWasCreated > 15) {
-      await db.delete(authCodes).where(eq(authCodes.code, code))
-      throw new Error('Auth link expied, please generate a new one.')
-    }
-
-    const restaurant = await db.query.restaurants.findFirst({
-      where(filds, { eq }) {
-        return eq(filds.managerId, authLinkFromCode.userId)
-      },
+    const authenticateFromCodeUseCase = makeAuthenticateFromCode()
+    const { userId, restaurantId } = await authenticateFromCodeUseCase.execute({
+      code,
     })
 
     await signUser({
-      sub: authLinkFromCode.userId,
-      restaurantId: restaurant?.id,
+      sub: userId,
+      restaurantId,
     })
-
-    await db.delete(authCodes).where(eq(authCodes.code, code))
 
     set.redirect = redirect
   },

@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm'
 import { db } from '../../db/connection'
 import { NewAuthCode, authCodes } from '../../db/schema'
 import { AuthCodesRepository } from '../auth-codes-repository'
@@ -21,5 +22,9 @@ export class DrizzleAuthCodesRepository implements AuthCodesRepository {
     })
 
     return authLink || null
+  }
+
+  async deleteById(id: string) {
+    await db.delete(authCodes).where(eq(authCodes.id, id))
   }
 }

@@ -47,3 +47,6 @@ export const ordersRelations = relations(orders, ({ one, many }) => {
     orderItems: many(orderItems),
   }
 })
+
+export type Order = typeof orders.$inferSelect // return type when queried
+export type NewOrder = typeof orders.$inferInsert // insert type

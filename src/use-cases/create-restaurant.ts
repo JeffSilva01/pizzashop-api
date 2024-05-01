@@ -5,7 +5,6 @@ import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 interface CreateRestaurantUseCaseRequest {
   managerEmail: string
   managerPhone?: string
-
   managerName: string
   restaurantName: string
   restaurantDescription?: string

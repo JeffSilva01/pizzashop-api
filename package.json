@@ -14,10 +14,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{ts,tsx}": "eslint --fix"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.8.0",

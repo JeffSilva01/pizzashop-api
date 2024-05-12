@@ -14,7 +14,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "*.{ts,tsx}": [
       "eslint --fix",
       "git add"
     ]

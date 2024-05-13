@@ -1,28 +1,6 @@
-type Filters = {
-  customerName?: string
-  orderId?: string
-  status?: 'pending' | 'processing' | 'delivering' | 'delivered' | 'canceled'
-}
-
-type FindManyResponse = {
-  orders: {
-    orderId: string
-    createdAt: Date
-    status: 'pending' | 'processing' | 'delivering' | 'delivered' | 'canceled'
-    total: number
-    customerName: string
-  }[]
-  meta: {
-    pageIndex: number
-    perPage: number
-    totalCount: number
-  }
-}
+import { NewOrder, Order } from '../db/schema'
 
 export interface OrdersRepository {
-  findMany(
-    restalrantId: string,
-    pageIndex: number,
-    filters?: Filters,
-  ): Promise<FindManyResponse>
+  findById(id: string): Promise<Order | null>
+  create(newOrder: NewOrder): Promise<Order>
 }

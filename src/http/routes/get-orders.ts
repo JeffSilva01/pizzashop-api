@@ -1,42 +1,28 @@
 import { Elysia, t } from 'elysia'
 import { auth } from '../auth'
 import { UserIsNotManage } from '../../use-cases/errors/user-is-not-manage'
-import { makeFetchOrdersDetails } from '../../use-cases/factories/make-fetch-orders-details'
-import { createSelectSchema } from 'drizzle-typebox'
-import { orders } from '../../db/schema'
+import { makeGetOrder } from '../../use-cases/factories/make-gate-order'
 
 export const getOrders = new Elysia().use(auth).get(
-  '/orders',
-  async ({ getCurrentUser, query }) => {
+  '/orders/:orderId',
+  async ({ getCurrentUser, params }) => {
     const { restaurantId } = await getCurrentUser()
-    const { pageIndex, status, orderId, customerName } = query
+    const { orderId } = params
 
     if (!restaurantId) {
       throw new UserIsNotManage()
     }
 
-    const getRestaurant = makeFetchOrdersDetails()
-    const { orders, meta } = await getRestaurant.execute({
-      restaurantId,
-      pageIndex,
-      filters: {
-        status,
-        customerName,
-        orderId,
-      },
-    })
+    const getOrder = makeGetOrder()
+    const { order } = await getOrder.execute({ orderId })
 
     return {
-      orders,
-      meta,
+      order,
     }
   },
   {
-    query: t.Object({
-      customerName: t.Optional(t.String()),
-      orderId: t.Optional(t.String()),
-      status: t.Optional(createSelectSchema(orders).properties.status),
-      pageIndex: t.Numeric({ minimum: 0 }),
+    params: t.Object({
+      orderId: t.String(),
     }),
   },
 )

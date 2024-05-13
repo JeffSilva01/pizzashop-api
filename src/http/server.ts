@@ -6,6 +6,7 @@ import { signOut } from './routes/sign-out'
 import { getProfile } from './routes/get-profile'
 import { getManagedRestaurant } from './routes/get-managed-restaurant'
 import swagger from '@elysiajs/swagger'
+import { ResourceNotFoundError } from '../use-cases/errors/resource-not-found-error'
 
 const app = new Elysia()
   .use(swagger())
@@ -16,6 +17,14 @@ const app = new Elysia()
   .use(getProfile)
   .use(getManagedRestaurant)
   .onError(({ error, code, set }) => {
+    if (error instanceof ResourceNotFoundError) {
+      set.status = 404
+
+      return {
+        message: error.message,
+      }
+    }
+
     switch (code) {
       case 'VALIDATION': {
         set.status = error.status

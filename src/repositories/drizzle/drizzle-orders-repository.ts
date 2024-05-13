@@ -1,5 +1,5 @@
 import { db } from '../../db/connection'
-import { orders, users } from '../../db/schema'
+import { NewOrder, orders, users } from '../../db/schema'
 import { OrdersRepository } from '../orders-repository'
 import { eq, and, ilike, count, desc, sql } from 'drizzle-orm'
 
@@ -10,6 +10,30 @@ type Filters = {
 }
 
 export class DrizzleOrdersRepository implements OrdersRepository {
+  async create({ restaurantId, totalInCents, comments, customerId }: NewOrder) {
+    const [order] = await db
+      .insert(orders)
+      .values({
+        restaurantId,
+        totalInCents,
+        comments,
+        customerId,
+      })
+      .returning()
+
+    return order
+  }
+
+  async findById(id: string) {
+    const order = await db.query.orders.findFirst({
+      where(filds, { eq }) {
+        return eq(filds.id, id)
+      },
+    })
+
+    return order || null
+  }
+
   async findMany(
     restaurantId: string,
     pageIndex: number = 0,
